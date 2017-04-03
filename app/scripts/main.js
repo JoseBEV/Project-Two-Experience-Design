@@ -1,42 +1,103 @@
 console.log('\'Allo \'Allo!');
 $(document).ready(function(){
 
-var renderer = PIXI.autoDetectRenderer(400, 400, { transparent: true });
-$('#addPixi').append(renderer.view);
-var stage = new PIXI.Container();
-var clouds = PIXI.Sprite.fromImage('images/clouds1.JPG');
-clouds.anchor.x = 0.5;
-clouds.anchor.y = 0.5;
-clouds.position.x = 200;
-clouds.position.y = 200;
-stage.addChild(clouds);
-var text = new PIXI.Text('Welcome', {font:'50px Arial', dropShadow: true, fill:'white'});
-text.anchor.x = 0.5;
-text.anchor.y = 0.5;
-text.position.x = 200;
-text.position.y = -25;
-stage.addChild(text);
-render();
-var count = 0;
-function render(){
-  var colorMatrix = [
-    1, 0, 0, 0,
-    0, 1, 0, 0,
-    0, 0, 1, 0,
-    0, 0, 0, 1
-  ];
-  var filter = new PIXI.filters.ColorMatrixFilter();
-  filter.matrix = colorMatrix;
-  var newValSat = 0 + Math.sin(count);
-  filter.saturate(newValSat, false);
-  stage.filters = [filter];
-  stage.addChild(clouds);
-  count += .001;
-  requestAnimationFrame(render);
-  clouds.rotation += .001;
-    if (text.position.y < 350) {
-      text.position.y += 1;
-    }
-  renderer.render(stage);
+  'use strict';
+
+  // curtains
+  function open_curtain()
+  {
+   $('#curtain1').animate({width:20},1000);
+   $('#curtain2').animate({width:20},1000);
   }
+
+  function close_curtain()
+  {
+   $('#curtain1').animate({width:200},1000);
+   $('#curtain2').animate({width:191},1000);
+  }  
+
+  $('#open').click(function() {
+    open_curtain();
+  });
+
+  $('#close').click(function() {
+    close_curtain();
+  });
+
+
+
+  // variables
+  var $isAnimatedSecond = $('.second .is-animated'),
+      $isAnimatedSecondSingle = $('.second .is-animated__single'),
+      $isAnimatedThird = $('.third .is-animated'),
+      $isAnimatedThirdSingle = $('.third .is-animated__single'),
+      $isAnimatedFourth = $('.fourth .is-animated'),
+      $isAnimatedFourthSingle = $('.fourth .is-animated__single');
+
+  // initialize fullPage
+  $('#fullpage').fullpage({
+
+    navigation: true,
+    onLeave: function(index, nextIndex, direction) {
+    
+      /**
+      * use the following condition: 
+      *
+      *   if( index == 1 && direction == 'down' ) {
+      *
+      * if you haven't enabled the dot navigation
+      * or you aren't interested in the animations that occur 
+      * when you jump (using the dot navigation) 
+      * from the first section to another sections 
+      */
+      
+      // first animation
+      if( index == 1 && nextIndex == 2 ) { 
+        $isAnimatedSecond.addClass('animated fadeInUpBig'); 
+        $isAnimatedSecond.eq(0).css('animation-delay', '.3s');
+        $isAnimatedSecond.eq(1).css('animation-delay', '.6s');
+        $isAnimatedSecond.eq(2).css('animation-delay', '.9s');
+        $isAnimatedSecondSingle.addClass('animated rollIn').css('animation-delay', '1.7s');
+      }
+
+    /**
+      * use the following condition: 
+      *
+      *   else if( index == 2 && direction == 'down' ) {
+      *
+      * if you haven't enabled the dot navigation
+      * or you aren't interested in the animations that occur 
+      * when you jump (using the dot navigation) from the first section to the third one 
+      */
+      
+      // second animation
+      else if( ( index == 1 || index == 2 ) && nextIndex == 3 ) {
+        $isAnimatedThird.eq(0).addClass('animated fadeInRightBig').css('animation-delay', '.3s'); 
+        $isAnimatedThird.eq(1).addClass('animated fadeInLeftBig').css('animation-delay', '.6s');
+        $isAnimatedThirdSingle.addClass('animated bounceInDown').css('animation-delay', '1.2s');
+      }
+
+      
+     /**
+      * use the following condition:
+      *
+      *   else if( index == 3 && direction == 'down' ) {
+      *
+      * if you haven't enabled the dot navigation
+      * or you aren't interested in the animations that occur 
+      * when you jump (using the dot navigation) 
+      * from the first or second section to the fourth one 
+      */
+      
+      // third animation
+      else if( ( index == 1 || index == 2 || index == 3 ) && nextIndex == 4 ) {
+        $isAnimatedFourth.addClass('animated zoomIn').css('animation-delay', '.6s');
+        $isAnimatedFourthSingle.addClass('animated lightSpeedIn').css('animation-delay', '1.2s');
+        $isAnimatedFourthSingle.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+          $(this).removeClass('lightSpeedIn').addClass('zoomOutDown');
+        });
+      }
+    }
+
+  });
 });
