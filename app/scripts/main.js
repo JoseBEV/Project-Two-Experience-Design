@@ -1,103 +1,80 @@
-console.log('\'Allo \'Allo!');
-$(document).ready(function(){
 
-  'use strict';
-
-  // curtains
-  function open_curtain()
-  {
-   $('#curtain1').animate({width:20},1000);
-   $('#curtain2').animate({width:20},1000);
-  }
-
-  function close_curtain()
-  {
-   $('#curtain1').animate({width:200},1000);
-   $('#curtain2').animate({width:191},1000);
-  }  
-
-  $('#open').click(function() {
-    open_curtain();
-  });
-
-  $('#close').click(function() {
-    close_curtain();
-  });
+// variables
+var $header_top = $('.header-top');
+var $nav = $('nav');
 
 
 
-  // variables
-  var $isAnimatedSecond = $('.second .is-animated'),
-      $isAnimatedSecondSingle = $('.second .is-animated__single'),
-      $isAnimatedThird = $('.third .is-animated'),
-      $isAnimatedThirdSingle = $('.third .is-animated__single'),
-      $isAnimatedFourth = $('.fourth .is-animated'),
-      $isAnimatedFourthSingle = $('.fourth .is-animated__single');
-
-  // initialize fullPage
-  $('#fullpage').fullpage({
-
-    navigation: true,
-    onLeave: function(index, nextIndex, direction) {
-    
-      /**
-      * use the following condition: 
-      *
-      *   if( index == 1 && direction == 'down' ) {
-      *
-      * if you haven't enabled the dot navigation
-      * or you aren't interested in the animations that occur 
-      * when you jump (using the dot navigation) 
-      * from the first section to another sections 
-      */
-      
-      // first animation
-      if( index == 1 && nextIndex == 2 ) { 
-        $isAnimatedSecond.addClass('animated fadeInUpBig'); 
-        $isAnimatedSecond.eq(0).css('animation-delay', '.3s');
-        $isAnimatedSecond.eq(1).css('animation-delay', '.6s');
-        $isAnimatedSecond.eq(2).css('animation-delay', '.9s');
-        $isAnimatedSecondSingle.addClass('animated rollIn').css('animation-delay', '1.7s');
-      }
-
-    /**
-      * use the following condition: 
-      *
-      *   else if( index == 2 && direction == 'down' ) {
-      *
-      * if you haven't enabled the dot navigation
-      * or you aren't interested in the animations that occur 
-      * when you jump (using the dot navigation) from the first section to the third one 
-      */
-      
-      // second animation
-      else if( ( index == 1 || index == 2 ) && nextIndex == 3 ) {
-        $isAnimatedThird.eq(0).addClass('animated fadeInRightBig').css('animation-delay', '.3s'); 
-        $isAnimatedThird.eq(1).addClass('animated fadeInLeftBig').css('animation-delay', '.6s');
-        $isAnimatedThirdSingle.addClass('animated bounceInDown').css('animation-delay', '1.2s');
-      }
-
-      
-     /**
-      * use the following condition:
-      *
-      *   else if( index == 3 && direction == 'down' ) {
-      *
-      * if you haven't enabled the dot navigation
-      * or you aren't interested in the animations that occur 
-      * when you jump (using the dot navigation) 
-      * from the first or second section to the fourth one 
-      */
-      
-      // third animation
-      else if( ( index == 1 || index == 2 || index == 3 ) && nextIndex == 4 ) {
-        $isAnimatedFourth.addClass('animated zoomIn').css('animation-delay', '.6s');
-        $isAnimatedFourthSingle.addClass('animated lightSpeedIn').css('animation-delay', '1.2s');
-        $isAnimatedFourthSingle.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-          $(this).removeClass('lightSpeedIn').addClass('zoomOutDown');
-        });
-      }
-    }
-
-  });
+// toggle menu
+$header_top.find('a').on('click', function() {
+  $(this).parent().toggleClass('open-menu');
 });
+
+
+
+// fullpage customization
+$('#fullpage').fullpage({
+  sectionsColor: ['#B8AE9C', '#348899', '#F2AE72', '#5C832F', '#B8B89F'],
+  sectionSelector: '.vertical-scrolling',
+  slideSelector: '.horizontal-scrolling',
+  navigation: true,
+  slidesNavigation: true,
+  controlArrows: false,
+  anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection', 'fifthSection'],
+  menu: '#menu',
+
+  afterLoad: function(anchorLink, index) {
+    $header_top.css('background', 'rgba(0, 47, 77, .3)');
+    $nav.css('background', 'rgba(0, 47, 77, .25)');
+    if (index == 5) {
+        $('#fp-nav').hide();
+      }
+  },
+
+  onLeave: function(index, nextIndex, direction) {
+    if(index == 5) {
+      $('#fp-nav').show();
+    }
+  },
+
+  afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex) {
+    if(anchorLink == 'fifthSection' && slideIndex == 1) {
+      $.fn.fullpage.setAllowScrolling(false, 'up');
+      $header_top.css('background', 'transparent');
+      $nav.css('background', 'transparent');
+      $(this).css('background', '#374140');
+      $(this).find('h2').css('color', 'white');
+      $(this).find('h3').css('color', 'white');
+      $(this).find('p').css(
+        {
+          'color': '#DC3522',
+          'opacity': 1,
+          'transform': 'translateY(0)'
+        }
+      );
+    }
+  },
+
+  onSlideLeave: function( anchorLink, index, slideIndex, direction) {
+    if(anchorLink == 'fifthSection' && slideIndex == 1) {
+      $.fn.fullpage.setAllowScrolling(true, 'up');
+      $header_top.css('background', 'rgba(0, 47, 77, .3)');
+      $nav.css('background', 'rgba(0, 47, 77, .25)');
+    }
+  }
+});
+
+$(document).ready(function() {
+  console.log('Ready');
+     $('[rel="tooltip"]').tooltip();
+});
+  
+ function rotateCard(btn){
+     var $card = $(btn).closest('.card-container');
+     console.log($card);
+     if($card.hasClass('hover')){
+         $card.removeClass('hover');
+     } else {
+         $card.addClass('hover');
+     }
+ }
