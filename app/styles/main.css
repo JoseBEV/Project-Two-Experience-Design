@@ -4,6 +4,21 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 @font-face {
+  font-family: "showtime";
+  src: url('../fonts/Showtime.ttf');
+}
+
+@font-face {
+  font-family: "broadway";
+  src: url('../fonts/TicketMaster.ttf');
+}
+
+@font-face {
+  font-family: "crof";
+  src: url('../fonts/Come Rain Or Fall.otf');
+}
+
+@font-face {
   font-family: "untitled-font-1";
   src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/untitled-font-1.eot");
   src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/untitled-font-1.eot#iefix") format("embedded-opentype"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/untitled-font-1.woff") format("woff"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/untitled-font-1.ttf") format("truetype"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/untitled-font-1.svg#untitled-font-1") format("svg");
@@ -132,8 +147,11 @@ ul, li {
 }
 
 h1 {
+  padding-left: 30px;
+  padding-right: 30px;
   line-height: 70px;
   height: 70px;
+  font-size: 50px;
 }
 
 h1 a {
@@ -320,6 +338,15 @@ body {
 
 }
 
+.wrapper2 {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 9999;
+
+}
+
 .backdrop {
   position: absolute;
   top: 0;
@@ -327,7 +354,17 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-image: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1));
+  background: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1));
+}
+
+.backdrop2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(#000000, rgba(25,53,93,1) 90%, rgba(25,53,93,1));
 }
 
 .stage_floor {
@@ -337,7 +374,18 @@ body {
   left: 0;
   right: 0;
   height: 150%;
-  background-image: radial-gradient(rgba(54, 90, 143, 0.9), rgba(54, 90, 143, 0));
+  background: radial-gradient(rgba(54, 90, 143, 0.9), rgba(54, 90, 143, 0));
+  transform: scale(1.0, 0.3);
+}
+
+.stage_floor2 {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  height: 150%;
+  background: radial-gradient(rgba(54, 90, 143, 0.9), rgba(54, 90, 143, 0));
   transform: scale(1.0, 0.3);
 }
 
@@ -423,39 +471,55 @@ body {
 section {
   text-align: center;
   /*background: url('https://unsplash.it/1910/1221?image=626') no-repeat center / cover;*/
+  background-color: black !important;
 }
 
 .first-section {
   background: url('../images/stageset.JPG') no-repeat center / cover;
 }
 
-.second-slide2 {
-  /*background: url('../images/Meyers_b10_s0120a.jpg') no-repeat left / cover;
-  background-size: 65%;
-  */
-}
-
-.second-slide4 {
-  background: url('../images/Meyers_b10_s0120b.jpg') no-repeat left / cover;
-  background-size: 65%;
-}
-
-.second-slide6 {
-  background: url('../images/Meyers_b10_s0120c.jpg') no-repeat left / cover;
-  background-size: 65%;
-}
-
 h2 {
   text-transform: lowercase;
   font-size: 4em;
+  margin-top: -3px;
   margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+h2 a{
+  font-family: "broadway";
+  font-size: 70px;
 }
 
 h3 {
   font-weight: 300;
   font-size: 2.8em;
+  margin-top: -3px;
+  margin-left: 20px;
+  font-family: "crof";
+  padding-top: 10px;
 }
 
+p {
+  font-family: "crof";
+  font-size: 11px;
+}
+
+h3 a{
+
+}
+
+.title {
+  font-family: "showtime";
+  background-color: rgba(255,250,205,0.5);
+  border-radius: 25px;
+  margin-left: -140px;
+}
+
+.container {
+  background-color: rgba(255,255,224,0.8) !important;
+  border-radius: 15px !important;
+}
 
 /* SLIDENAV STYLES - fullPage.js
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -510,6 +574,219 @@ h3 {
   }
 }
 
+/* Cards
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* entire container, keeps perspective
+
+.centered-left {
+  margin-left: 60px;
+}
+
+.centered-right {
+  margin: auto;
+}
+*/
+
+.card-margin {
+  margin-left: 200px;
+}
+
+.card-container {
+	  -webkit-perspective: 800px;
+   -moz-perspective: 800px;
+     -o-perspective: 800px;
+        perspective: 800px;
+        margin-bottom: 30px;
+}
+/* flip the pane when hovered */
+.card-container:not(.manual-flip):hover .card,
+.card-container.hover.manual-flip .card{
+	-webkit-transform: rotateY( 180deg );
+-moz-transform: rotateY( 180deg );
+ -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+
+
+.card-container.static:hover .card,
+.card-container.static.hover .card {
+	-webkit-transform: none;
+-moz-transform: none;
+ -o-transform: none;
+    transform: none;
+}
+/* flip speed goes here */
+.card {
+	 -webkit-transition: -webkit-transform .5s;
+   -moz-transition: -moz-transform .5s;
+     -o-transition: -o-transform .5s;
+        transition: transform .5s;
+-webkit-transform-style: preserve-3d;
+   -moz-transform-style: preserve-3d;
+     -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	-webkit-backface-visibility: hidden;
+   -moz-backface-visibility: hidden;
+     -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #FFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+}
+
+/* back, initially hidden pane */
+.back {
+		-webkit-transform: rotateY( 180deg );
+   -moz-transform: rotateY( 180deg );
+     -o-transform: rotateY( 180deg );
+        transform: rotateY( 180deg );
+        z-index: 3;
+}
+
+.back .btn-simple{
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+}
+/*        Style       */
+
+.card{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    color: #444444;
+}
+.card-container, .front, .back {
+	width: 100%;
+	height: 320px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);
+-moz-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);
+box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);
+}
+.card .cover{
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+}
+.card .cover img{
+    width: 100%;
+    height: 100%;
+}
+.card .user{
+    border-radius: 50%;
+    display: block;
+    height: 120px;
+    margin: -55px auto 0;
+    overflow: hidden;
+    width: 120px;
+}
+.card .user img{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 4px solid #FFFFFF;
+    width: 100%;
+}
+
+.card .content{
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+    padding: 10px 20px 20px;
+}
+.text-center {
+  margin-top: 130px;
+}
+.card .content .main {
+    min-height: 160px;
+}
+.card .back .content .main {
+    height: 215px;
+}
+.card .name {
+		font-family: 'Arima Madurai', cursive;
+    font-size: 22px;
+    line-height: 28px;
+    margin: 10px 0 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+.card h5{
+    margin: 5px 0;
+    font-weight: 400;
+    line-height: 20px;
+}
+.card .profession{
+    color: #999999;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.card .footer {
+    border-top: 1px solid #EEEEEE;
+    color: #999999;
+    margin: 30px 0 0;
+    padding: 10px 0 0;
+    text-align: center;
+}
+.card .footer .social-links{
+    font-size: 18px;
+}
+.card .footer .social-links a{
+    margin: 0 7px;
+}
+.card .footer .btn-simple{
+    margin-top: -6px;
+}
+.card .header {
+    padding: 15px 20px;
+    height: 90px;
+}
+.card .motto{
+		font-family: 'Arima Madurai', cursive;
+    border-bottom: 1px solid #EEEEEE;
+    color: #999999;
+    font-size: 14px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.card .stats-container{
+	width: 100%;
+	margin-top: 50px;
+}
+.card .stats{
+	display: block;
+	float: left;
+	width: 33.333333%;
+	text-align: center;
+}
+
+.card .stats:first-child{
+	border-right: 1px solid #EEEEEE;
+}
+.card .stats:last-child{
+	border-left: 1px solid #EEEEEE;
+}
+.card .stats h4{
+		font-family: 'Arima Madurai', cursive;
+	font-weight: 300;
+	margin-bottom: 5px;
+}
+.card .stats p{
+	color: #777777;
+}
+/*      Just for presentation        */
+
 
 /*       Fix bug for IE      */
 
@@ -529,4 +806,69 @@ h3 {
     z-index: 5;
     visibility: visible;
   }
+}
+
+/* Paper Dolls
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.paper-dolls {
+  width: 80%;
+  height: 1504px;
+  z-index: 100;
+  margin-top: 330px;
+  /*
+  margin-top: 300px;
+  */
+}
+
+.paper-dolls img {
+  width: 10%;
+  height: auto;
+}
+
+.costumes {
+  width: 80%;
+  height: auto;
+  z-index: 101;
+  position: absolute;
+  margin-top: 80px;
+  margin-left: -410px;
+  top: 0px;
+}
+
+.costumes img {
+  width: 5%;
+  height: auto;
+  display: none;
+}
+
+.costumes img:hover{
+  background: rgba(243, 243, 240, 0.7);
+  border-radius: 50%;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.male {
+  margin-right: 70px;
+}
+
+.female {
+  margin-left: 70px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.open img {
+  width: 0;
+}
+
+.curtain-call {
+  width: 0;
 }

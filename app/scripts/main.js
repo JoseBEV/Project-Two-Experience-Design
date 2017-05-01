@@ -24,9 +24,33 @@ $(document).ready(function() {
       $('.curtainL').css('transition', '2s');
       $('.curtainR').css('width', '0%');
       $('.curtainR').css('transition', '2s');
-      $('.wrapper').delay(7000).fadeOut();
+      $('.wrapper').delay(7500).fadeOut();
     }
   });
+
+  $('button').click(function() {
+    console.log('works?');
+    $('.paper-dolls img').fadeOut();
+    setTimeout(function() {
+      $('.costumes img').fadeIn();
+      $('.paper-dolls img').fadeIn();
+    }, 3000);
+    $('.curtainL').css('width', '50%');
+    $('.curtainL').css('transition', '2s');
+    $('.curtainR').css('width', '50%');
+    $('.curtainR').css('transition', '2s');
+    setTimeout(function() {
+      $('.curtainL').css('width', '0%');
+      $('.curtainL').css('transition', '2s');
+      $('.curtainR').css('width', '0%');
+      $('.curtainR').css('transition', '2s');
+    }, 3000);
+
+
+  });
+
+
+
 
   // fullpage customization
   $('#fullpage').fullpage({
@@ -36,7 +60,7 @@ $(document).ready(function() {
     navigation: true,
     slidesNavigation: true,
     controlArrows: false,
-    anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection', 'fifthSection'],
+    anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection'],
     menu: '#menu',
 
     afterLoad: function(anchorLink, index) {
@@ -55,7 +79,7 @@ $(document).ready(function() {
       }
     },
 
-    afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+    afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex, direction, nextSlideIndex) {
       if (anchorLink == 'fifthSection' && slideIndex == 1) {
         $.fn.fullpage.setAllowScrolling(false, 'up');
         $header_top.css('background', 'transparent');
@@ -69,6 +93,13 @@ $(document).ready(function() {
           'transform': 'translateY(0)'
         });
       }
+      if (slideIndex == 1) {
+           $('.paper-dolls').addClass('animated slideInUp');
+         }
+      if (slideIndex == 0) {
+           $('.paper-dolls').removeClass('animated slideInUp');
+         }
+
     },
 
     onSlideLeave: function(anchorLink, index, slideIndex, direction) {
